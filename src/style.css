@@ -1,0 +1,23 @@
+.opp {
+  background: linear-gradient(
+      rgba(248, 248, 248, 0.3),
+      rgba(255, 255, 255, 0.3)
+    ),
+    url(../src/picture/home.jpg);
+
+  background-repeat: no-repeat;
+  height: 3000px;
+  width: 5000px;
+}
+
+.text {
+  color: black;
+}
+
+.display {
+  display: inline-block;
+}
+
+.position {
+  position: relative;
+}
