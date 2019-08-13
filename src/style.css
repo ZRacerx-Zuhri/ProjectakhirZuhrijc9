@@ -3,7 +3,7 @@
       rgba(248, 248, 248, 0.3),
       rgba(255, 255, 255, 0.3)
     ),
-    url(../src/picture/home.jpg);
+    url(../src/picture/home3.jpg);
 
   background-repeat: no-repeat;
   height: 3000px;
@@ -18,6 +18,30 @@
   display: inline-block;
 }
 
-.position {
+.relatif {
   position: relative;
+}
+
+.opp2 {
+  background: linear-gradient(
+      rgba(248, 248, 248, 0.342),
+      rgba(255, 255, 255, 0.3)
+    ),
+    url(../src/picture/Loginsport.jpg);
+}
+
+.opp3 {
+  background: linear-gradient(
+      rgba(248, 248, 248, 0.342),
+      rgba(255, 255, 255, 0.3)
+    ),
+    url(../src/picture/sport.jpg);
+}
+
+.inline {
+  display: inline-block;
+}
+
+.absolut {
+  position: absolute;
 }

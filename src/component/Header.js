@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "../style.css";
 
 class Header extends Component {
@@ -10,12 +11,12 @@ class Header extends Component {
         }}
         className={"sticky-top"}
       >
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <a class="navbar-brand" href="#kk">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <a className="navbar-brand" href="/">
             PlayTeam
           </a>
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -23,14 +24,14 @@ class Header extends Component {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon" />
+            <span className="navbar-toggler-icon" />
           </button>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-2">
-              <li class="nav-item dropdown">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav mr-2">
+              <li className="nav-item dropdown">
                 <a
-                  class="nav-link dropdown-toggle"
+                  className="nav-link dropdown-toggle"
                   href="#kk"
                   id="navbarDropdown"
                   role="button"
@@ -40,40 +41,51 @@ class Header extends Component {
                 >
                   Category
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#kk">
-                    Action
+                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a className="dropdown-item" href="#kk">
+                    Futsal
                   </a>
-                  <a class="dropdown-item" href="#kk">
-                    Another action
+                  <a className="dropdown-item" href="#kk">
+                    Basket
                   </a>
-                  <div class="dropdown-divider" />
-                  <a class="dropdown-item" href="#kk">
+                  <div className="dropdown-divider" />
+                  <a className="dropdown-item" href="#kk">
                     Something else here
                   </a>
                 </div>
               </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0" style={{ margin: `0px` }}>
+            <form
+              className="form-inline my-2 my-lg-0"
+              style={{ margin: `0px` }}
+            >
               <input
-                class="form-control mr-sm-2"
+                className="form-control ml-5"
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
-                style={{ width: `800px` }}
+                style={{ width: `700px` }}
               />
               <button
-                class="btn btn-outline-success my-2 my-sm-0"
+                className="btn btn-outline-success my-2 my-sm-0 ml-3"
                 type="submit"
               >
                 Search
               </button>
-              <button type="button" className="btn btn-success ml-5">
-                Login
-              </button>
-              <button type="button" className="btn btn-primary ml-2">
-                Register
-              </button>
+              <Link to="/login">
+                <button
+                  type="button"
+                  className="btn btn-success"
+                  style={{ marginLeft: `200px` }}
+                >
+                  Login
+                </button>
+              </Link>
+              <Link to="register">
+                <button type="button" className="btn btn-primary ml-2">
+                  Register
+                </button>
+              </Link>
             </form>
           </div>
         </nav>
