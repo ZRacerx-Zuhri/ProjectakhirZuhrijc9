@@ -13,6 +13,7 @@
     "react-scripts": "3.0.1",
     "reactstrap": "^8.0.1",
     "redux": "^4.0.4",
+    "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "universal-cookie": "^4.0.2"
   },
@@ -36,5 +37,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "remote-redux-devtools": "^0.5.16"
   }
 }

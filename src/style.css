@@ -24,10 +24,10 @@
 
 .opp2 {
   background: linear-gradient(
-      rgba(248, 248, 248, 0.342),
+      rgba(248, 248, 248, 0.7),
       rgba(255, 255, 255, 0.3)
     ),
-    url(../src/picture/Loginsport.jpg);
+    url(../src/picture/sport2.jpg);
 }
 
 .opp3 {
@@ -44,4 +44,8 @@
 
 .absolut {
   position: absolute;
+}
+
+.fixed-top {
+  display: flex;
 }
