@@ -49,3 +49,9 @@
 .fixed-top {
   display: flex;
 }
+
+.centerimg {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

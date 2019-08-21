@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { login } from "../action/Action";
+import { login } from "../action";
+import { Link } from "react-router-dom";
+import Headerusers from "../component/Header/Headerusers";
 
 class Login extends Component {
   state = {
@@ -17,6 +19,7 @@ class Login extends Component {
   render() {
     return (
       <React.Fragment>
+        <Headerusers />
         <div
           className="row mx-auto opp2"
           style={{
@@ -54,14 +57,16 @@ class Login extends Component {
                 ref={input => (this.Password = input)}
               />
             </div>
+            <Link to="/">
+              <button
+                type="button"
+                className="btn btn-success"
+                onClick={this.onlogin}
+              >
+                Login
+              </button>
+            </Link>
 
-            <button
-              type="button"
-              className="btn btn-success"
-              onClick={this.onlogin}
-            >
-              Login
-            </button>
             <div style={{ marginTop: `3%` }}>
               Belum Punya Akun?
               <br />

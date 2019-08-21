@@ -1,9 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import "../style.css";
+import "../../../src/style.css";
+import { logout } from "../../action";
 
 class Header extends Component {
+  logout = () => {
+    this.props.logout();
+  };
+
   render() {
     if (!this.props.usernam)
       return (
@@ -11,7 +16,7 @@ class Header extends Component {
           style={{
             width: `100%`
           }}
-          className={"sticky-top"}
+          className=" sticky-top"
         >
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <a className="navbar-brand" href="/">
@@ -51,49 +56,40 @@ class Header extends Component {
                     aria-labelledby="navbarDropdown"
                   >
                     <a className="dropdown-item" href="#kk">
-                      Futsal
+                      Indoor
                     </a>
                     <a className="dropdown-item" href="#kk">
-                      Basket
-                    </a>
-                    <div className="dropdown-divider" />
-                    <a className="dropdown-item" href="#kk">
-                      Something else here
+                      Outdoor
                     </a>
                   </div>
                 </li>
               </ul>
               <form
                 className="form-inline my-2 my-lg-0"
-                style={{ margin: `0px` }}
+                style={{ width: `100%` }}
               >
                 <input
                   className="form-control ml-5"
                   type="search"
                   placeholder="Search"
                   aria-label="Search"
-                  style={{ width: `700px` }}
+                  style={{ width: `60%` }}
                 />
-                <button
-                  className="btn btn-outline-success my-2 my-sm-0 ml-3"
-                  type="submit"
-                >
+                <button className="btn btn-outline-success mx-3" type="submit">
                   Search
                 </button>
-                <Link to="/login">
-                  <button
-                    type="button"
-                    className="btn btn-success"
-                    style={{ marginLeft: `200px` }}
-                  >
-                    Login
-                  </button>
-                </Link>
-                <Link to="register">
-                  <button type="button" className="btn btn-primary ml-2">
-                    Register
-                  </button>
-                </Link>
+                <div style={{ marginLeft: `10%` }}>
+                  <Link to="/login">
+                    <button type="button" className="btn btn-success">
+                      Login
+                    </button>
+                  </Link>
+                  <Link to="/register">
+                    <button type="button" className="btn btn-primary ml-3">
+                      Register
+                    </button>
+                  </Link>
+                </div>
               </form>
             </div>
           </nav>
@@ -138,28 +134,24 @@ class Header extends Component {
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a className="dropdown-item" href="#kk">
-                    Futsal
+                    Indoor
                   </a>
                   <a className="dropdown-item" href="#kk">
-                    Basket
-                  </a>
-                  <div className="dropdown-divider" />
-                  <a className="dropdown-item" href="#kk">
-                    Something else here
+                    Outdoor
                   </a>
                 </div>
               </li>
             </ul>
             <form
               className="form-inline my-2 my-lg-0"
-              style={{ margin: `0px` }}
+              style={{ width: `100%` }}
             >
               <input
                 className="form-control ml-5"
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
-                style={{ width: `700px` }}
+                style={{ width: `60%` }}
               />
               <button
                 className="btn btn-outline-success my-2 my-sm-0 ml-3"
@@ -167,12 +159,23 @@ class Header extends Component {
               >
                 Search
               </button>
+              <div className="" style={{ marginLeft: `15%` }}>
+                <Link to="/profile">
+                  <button type="button" className="btn btn-secondary">
+                    Profile
+                  </button>
+                </Link>
 
-              <Link to="register">
-                <button type="button" className="btn btn-primary ml-2">
-                  Logout
-                </button>
-              </Link>
+                <Link to="/">
+                  <button
+                    type="button"
+                    className="btn btn-primary ml-2"
+                    onClick={this.logout}
+                  >
+                    Logout
+                  </button>
+                </Link>
+              </div>
             </form>
           </div>
         </nav>
@@ -183,8 +186,12 @@ class Header extends Component {
 
 const mps = state => {
   return {
-    usernam: state.users.username
+    usernam: state.users.username,
+    admin: state.users.adminuser
   };
 };
 
-export default connect(mps)(Header);
+export default connect(
+  mps,
+  { logout }
+)(Header);

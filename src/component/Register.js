@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "../config/axios";
+import Headerusers from "../component/Header/Headerusers";
+import { isEmail } from "validator";
 
 class Register extends Component {
   state = {
@@ -8,23 +10,64 @@ class Register extends Component {
   };
 
   inputuser = () => {
-    axios
-      .post("/inputuser", {
-        userName: this.userName.value,
-        fullname: this.Fullname.value,
-        email: this.Email.value,
-        password: this.Password.value,
-        gender: this.state.gender,
-        tanggallahir: this.Tanggal.value,
-        alamat: this.Alamat.value,
-        nomobile: this.nomor.value
-      })
-      .then(res => {
-        console.log(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    const username = this.userName.value;
+    const fullname = this.Fullname.value;
+    const email = this.Email.value;
+    const password = this.Password.value;
+    const gender = this.state.gender;
+    const tanggallahir = this.Tanggal.value;
+    const alamat = this.Alamat.value;
+    const nomobile = this.nomor.value;
+
+    axios.get("/getusers").then(res => {
+      if (
+        username === "" ||
+        email === "" ||
+        password === "" ||
+        gender === "" ||
+        tanggallahir === "" ||
+        alamat === "" ||
+        nomobile === ""
+      ) {
+        return alert("Data Mohon Dilengkapi");
+      } else if (!isEmail(email)) {
+        return alert("Harap Menggunakan alamat Email");
+      } else {
+        for (var i = 0; i < res.data.length; i++) {
+          if (res.data[i].email === email) {
+            return alert("email sudah pernah digunakan");
+          } else if (
+            res.data[i].username.toLowerCase() === username.toLowerCase()
+          ) {
+            return alert("username sudah pernah digunakan");
+          } else if (res.data[i].mobilenumber === nomobile) {
+            return alert("no Mobile sudah didaftarkan");
+          }
+        }
+      }
+
+      axios
+        .post("/inputuser", {
+          userName: username,
+          fullname: fullname,
+          email: email,
+          password: password,
+          gender: gender,
+          tanggallahir: tanggallahir,
+          alamat: alamat,
+          nomobile: nomobile
+        })
+        .then(res => {
+          if (typeof res.data == "string") {
+            console.log(res.data);
+          } else {
+            alert("Registrasi Berhasil");
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    });
   };
 
   handlegender = event => {
@@ -38,6 +81,7 @@ class Register extends Component {
   render() {
     return (
       <React.Fragment>
+        <Headerusers />
         <div>{this.renderlist()}</div>
 
         <div
@@ -110,6 +154,7 @@ class Register extends Component {
                   className="form-check-input "
                   type="radio"
                   value="Pria"
+                  id="gender"
                   checked={this.state.gender === "Pria"}
                   onChange={this.handlegender}
                 />
@@ -121,6 +166,7 @@ class Register extends Component {
                 <input
                   className="form-check-input"
                   type="radio"
+                  id="gender2"
                   value="Wanita"
                   checked={this.state.gender === "Wanita"}
                   onChange={this.handlegender}
