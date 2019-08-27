@@ -2,12 +2,21 @@ import React, { Component } from "react";
 import axios from "../config/axios";
 import Headerusers from "../component/Header/Headerusers";
 import { isEmail } from "validator";
+import Notiflix from "notiflix-react";
 
 class Register extends Component {
   state = {
-    users: "",
-    gender: ""
+    username: "",
+    email: "",
+    password: "",
+    gender: "",
+    Alamat: "",
+    nomobile: "",
+    tanggallahir: "",
+    fullname: ""
   };
+
+
 
   inputuser = () => {
     const username = this.userName.value;
@@ -20,6 +29,8 @@ class Register extends Component {
     const nomobile = this.nomor.value;
 
     axios.get("/getusers").then(res => {
+
+
       if (
         username === "" ||
         email === "" ||
@@ -29,19 +40,45 @@ class Register extends Component {
         alamat === "" ||
         nomobile === ""
       ) {
-        return alert("Data Mohon Dilengkapi");
+        return Notiflix.Report.Failure(
+          "Registration Failed",
+          "Mohon Lengkapi Data",
+          "Ok"
+        );
       } else if (!isEmail(email)) {
-        return alert("Harap Menggunakan alamat Email");
+        return Notiflix.Report.Failure(
+          "Registration Failed",
+          "Harap Menggunakan alamat Email",
+          "Ok"
+        );
+      } else if (new Date(tanggallahir) > new Date("2006-01-01")) {
+        return Notiflix.Report.Failure(
+          "Registration Failed",
+          "Usia Belum Cukup Umur min 13 Tahun",
+          "Ok"
+        );
       } else {
         for (var i = 0; i < res.data.length; i++) {
           if (res.data[i].email === email) {
-            return alert("email sudah pernah digunakan");
+            return Notiflix.Report.Failure(
+              "Registration Failed",
+              "email sudah pernah digunakan",
+              "Ok"
+            );
           } else if (
             res.data[i].username.toLowerCase() === username.toLowerCase()
           ) {
-            return alert("username sudah pernah digunakan");
+            return Notiflix.Report.Failure(
+              "Registration Failed",
+              "username sudah pernah digunakan",
+              "Ok"
+            );
           } else if (res.data[i].mobilenumber === nomobile) {
-            return alert("no Mobile sudah didaftarkan");
+            return Notiflix.Report.Failure(
+              "Registration Failed",
+              "no Mobile sudah didaftarkan",
+              "Ok"
+            );
           }
         }
       }
@@ -61,7 +98,16 @@ class Register extends Component {
           if (typeof res.data == "string") {
             console.log(res.data);
           } else {
-            alert("Registrasi Berhasil");
+            this.setState({
+              username: "",
+              email: "",
+              password: "",
+              Alamat: "",
+              nomobile: "",
+              tanggallahir: "",
+              fullname: ""
+            });
+            Notiflix.Report.Success("Registration Success", " ", "ok");
           }
         })
         .catch(err => {
@@ -70,19 +116,18 @@ class Register extends Component {
     });
   };
 
-  handlegender = event => {
-    return this.setState({ gender: event.target.value });
+  handlechange = e => {
+    return this.setState({ [e.target.name]: e.target.value });
   };
 
-  renderlist = () => {
-    return this.state.users;
+  handlegender = event => {
+    return this.setState({ gender: event.target.value });
   };
 
   render() {
     return (
       <React.Fragment>
         <Headerusers />
-        <div>{this.renderlist()}</div>
 
         <div
           className="container  opp3 rounded-lg"
@@ -91,7 +136,6 @@ class Register extends Component {
             backgroundRepeat: `no-repeat`,
             backgroundPosition: `center`,
             backgroundSize: `auto`,
-
             width: `100%`,
             height: "700px"
           }}
@@ -101,10 +145,13 @@ class Register extends Component {
               <div>
                 <label htmlFor="Email">Email</label>
                 <input
-                  type="text"
+                  type="email"
                   className="form-control"
+                  name="email"
                   id="Email"
                   placeholder="Email"
+                  value={this.state.email}
+                  onChange={this.handlechange}
                   ref={input => (this.Email = input)}
                 />
               </div>
@@ -114,7 +161,10 @@ class Register extends Component {
                   type="password"
                   className="form-control"
                   id="pass"
+                  name="password"
                   placeholder="Password"
+                  value={this.state.password}
+                  onChange={this.handlechange}
                   ref={input => (this.Password = input)}
                 />
               </div>
@@ -125,7 +175,10 @@ class Register extends Component {
                   type="text"
                   className="form-control"
                   id="username"
+                  name="username"
                   placeholder="Username"
+                  value={this.state.username}
+                  onChange={this.handlechange}
                   ref={input => (this.userName = input)}
                 />
               </div>
@@ -136,7 +189,10 @@ class Register extends Component {
                   type="text"
                   className="form-control"
                   id="fullname"
+                  name="fullname"
                   placeholder="Fullname"
+                  value={this.state.fullname}
+                  onChange={this.handlechange}
                   ref={input => {
                     this.Fullname = input;
                   }}
@@ -154,11 +210,11 @@ class Register extends Component {
                   className="form-check-input "
                   type="radio"
                   value="Pria"
-                  id="gender"
+                  id="male"
                   checked={this.state.gender === "Pria"}
                   onChange={this.handlegender}
                 />
-                <label className="form-check-label" htmlFor="gender">
+                <label className="form-check-label" htmlFor="male">
                   Pria
                 </label>
               </div>
@@ -166,22 +222,25 @@ class Register extends Component {
                 <input
                   className="form-check-input"
                   type="radio"
-                  id="gender2"
+                  id="female"
                   value="Wanita"
                   checked={this.state.gender === "Wanita"}
                   onChange={this.handlegender}
                 />
-                <label className="form-check-label" htmlFor="gender2">
+                <label className="form-check-label" htmlFor="female">
                   Wanita
                 </label>
               </div>
               <div className="mt-3">
                 <label htmlFor="ttl">Tanggal Lahir</label>
                 <input
-                  type="text"
+                  type="date"
                   className="form-control"
                   id="ttl"
+                  name="tanggallahir"
                   placeholder="Tanggal Lahir"
+                  value={this.state.tanggallahir}
+                  onChange={this.handlechange}
                   ref={input => {
                     this.Tanggal = input;
                   }}
@@ -193,7 +252,10 @@ class Register extends Component {
                   type="text"
                   className="form-control"
                   id="alamat"
+                  name="Alamat"
                   placeholder="Alamat"
+                  value={this.state.Alamat}
+                  onChange={this.handlechange}
                   ref={input => {
                     this.Alamat = input;
                   }}
@@ -205,7 +267,10 @@ class Register extends Component {
                   type="text"
                   className="form-control"
                   id="mobile"
+                  name="nomobile"
                   placeholder="Mobile Number"
+                  value={this.state.nomobile}
+                  onChange={this.handlechange}
                   ref={input => {
                     this.nomor = input;
                   }}

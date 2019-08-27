@@ -1,6 +1,6 @@
 import axios from "../config/axios";
 import Cookies from "universal-cookie";
-
+import Notiflix from "notiflix-react";
 const cookie = new Cookies();
 
 export const login = (name, password) => {
@@ -12,7 +12,7 @@ export const login = (name, password) => {
       })
       .then(res => {
         if (typeof res.data == "string") {
-          console.log(res.data);
+          Notiflix.Report.Failure("Username Or Password Wrong!!", " ");
         } else {
           cookie.set("datauser", {
             id: res.data.id,

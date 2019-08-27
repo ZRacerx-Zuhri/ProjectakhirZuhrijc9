@@ -4,13 +4,13 @@ import { connect } from "react-redux";
 import "../../../src/style.css";
 import { logout } from "../../action";
 
-class Header extends Component {
+class Headerusers extends Component {
   logout = () => {
     this.props.logout();
   };
 
   render() {
-    if (!this.props.usernam)
+    if (!this.props.username)
       return (
         <div
           style={{
@@ -95,6 +95,7 @@ class Header extends Component {
           </nav>
         </div>
       );
+
     return (
       <div
         style={{
@@ -186,12 +187,11 @@ class Header extends Component {
 
 const mps = state => {
   return {
-    usernam: state.users.username,
-    admin: state.users.adminuser
+    username: state.users.username
   };
 };
 
 export default connect(
   mps,
   { logout }
-)(Header);
+)(Headerusers);

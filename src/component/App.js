@@ -11,6 +11,8 @@ import { keeplogin } from "../action";
 import { adminlogin } from "../action";
 import AdminLogin from "../component/admin/Adminlogin";
 import ManageProduct from "./admin/ManageProduct";
+import Notiflix from "notiflix-react";
+// import Headerusers from "./Header/Headerusers"
 
 const cookie = new Cookies();
 
@@ -25,6 +27,25 @@ class App extends Component {
     if (admin) {
       this.props.adminlogin(admin);
     }
+  }
+
+  componentDidMount() {
+    Notiflix.Confirm.Init({
+      width: "35%",
+      fontFamily: "Arial",
+      useGoogleFont: false,
+      okButtonBackground: "red",
+      titleColor: "#f30a0a"
+    });
+
+    Notiflix.Report.Init({
+      width: "50%",
+      cssAnimationStyle: "zoom",
+      messageFontSize: "18px"
+    });
+
+    Notiflix.Loading.Circle("Please wait...");
+    Notiflix.Loading.Remove(800);
   }
 
   render() {

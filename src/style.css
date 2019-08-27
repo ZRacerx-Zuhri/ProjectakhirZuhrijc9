@@ -55,3 +55,6 @@
   margin-left: auto;
   margin-right: auto;
 }
+.profile {
+  background-image: url(../src/picture/avatar.png);
+}

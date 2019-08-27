@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { login } from "../action";
-import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import Headerusers from "../component/Header/Headerusers";
 
 class Login extends Component {
@@ -17,6 +17,8 @@ class Login extends Component {
   };
 
   render() {
+    if (this.props.username) return <Redirect to="/" />;
+
     return (
       <React.Fragment>
         <Headerusers />
@@ -44,7 +46,7 @@ class Login extends Component {
                 ref={input => (this.username = input)}
               />
               <small id="emailHelp" className="form-text text-muted">
-                We'll never share your email with anyone else.
+                We'll never share your username with anyone else.
               </small>
             </div>
             <div className="form-group">
@@ -57,15 +59,14 @@ class Login extends Component {
                 ref={input => (this.Password = input)}
               />
             </div>
-            <Link to="/">
-              <button
-                type="button"
-                className="btn btn-success"
-                onClick={this.onlogin}
-              >
-                Login
-              </button>
-            </Link>
+
+            <button
+              type="button"
+              className="btn btn-success"
+              onClick={this.onlogin}
+            >
+              Login
+            </button>
 
             <div style={{ marginTop: `3%` }}>
               Belum Punya Akun?
@@ -81,7 +82,13 @@ class Login extends Component {
   }
 }
 
+const mps = state => {
+  return {
+    username: state.users.username
+  };
+};
+
 export default connect(
-  null,
+  mps,
   { login }
 )(Login);

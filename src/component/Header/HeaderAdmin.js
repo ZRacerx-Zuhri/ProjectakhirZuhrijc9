@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import "../../../src/style.css";
 import { adminlogout } from "../../action";
 
-class Header extends Component {
+class HeaderAdmin extends Component {
   adminlogout = () => {
     this.props.adminlogout();
   };
@@ -136,4 +136,4 @@ const mps = state => {
 export default connect(
   mps,
   { adminlogout }
-)(Header);
+)(HeaderAdmin);
