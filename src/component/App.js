@@ -12,7 +12,7 @@ import { adminlogin } from "../action";
 import AdminLogin from "../component/admin/Adminlogin";
 import ManageProduct from "./admin/ManageProduct";
 import Notiflix from "notiflix-react";
-// import Headerusers from "./Header/Headerusers"
+import ProductList from "./ProductList";
 
 const cookie = new Cookies();
 
@@ -57,6 +57,7 @@ class App extends Component {
         <Route path="/profile" component={ProfileUser} />
         <Route path="/adminlogin" component={AdminLogin} />
         <Route path="/manageproduct" component={ManageProduct} />
+        <Route path="/product" component={ProductList} />
       </BrowserRouter>
     );
   }
