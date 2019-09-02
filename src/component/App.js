@@ -13,6 +13,9 @@ import AdminLogin from "../component/admin/Adminlogin";
 import ManageProduct from "./admin/ManageProduct";
 import Notiflix from "notiflix-react";
 import ProductList from "./ProductList";
+import ProductDetail from "../component/ProductDetail";
+import Cart from "../component/Cart";
+import Order from "../component/Order";
 
 const cookie = new Cookies();
 
@@ -58,6 +61,9 @@ class App extends Component {
         <Route path="/adminlogin" component={AdminLogin} />
         <Route path="/manageproduct" component={ManageProduct} />
         <Route path="/product" component={ProductList} />
+        <Route path="/detailproduct/:id" component={ProductDetail} />
+        <Route path="/cart" component={Cart} />
+        <Route path="/order" component={Order} />
       </BrowserRouter>
     );
   }

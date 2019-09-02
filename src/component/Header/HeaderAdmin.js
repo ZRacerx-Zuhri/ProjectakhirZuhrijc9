@@ -82,10 +82,10 @@ class HeaderAdmin extends Component {
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a className="dropdown-item" href="#kk">
-                    Indoor
+                    Football
                   </a>
                   <a className="dropdown-item" href="#kk">
-                    Outdoor
+                    Basketball
                   </a>
                 </div>
               </li>

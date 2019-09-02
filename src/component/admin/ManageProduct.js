@@ -6,12 +6,15 @@ import HeaderAdmin from "../Header/HeaderAdmin";
 class ManageProduct extends Component {
   state = {
     products: [],
-    jadwal: []
+    jadwal: [],
+    editproduct: 0,
+    listeditproduct: {},
+    databank: []
   };
 
   getproduct = () => {
     axios
-      .get("/productadmin")
+      .get("/product")
       .then(res => {
         this.setState({ products: res.data });
       })
@@ -29,6 +32,7 @@ class ManageProduct extends Component {
   componentDidMount() {
     this.getproduct();
     this.getJadwal();
+    this.getbank();
   }
 
   onDelete = data => {
@@ -43,6 +47,10 @@ class ManageProduct extends Component {
       });
   };
 
+  Onup = (x, y) => {
+    this.setState({ editproduct: x, listeditproduct: y });
+  };
+
   renderjadwal = () => {
     return this.state.jadwal.map(val => (
       <tr>
@@ -52,6 +60,25 @@ class ManageProduct extends Component {
         <td scope="col">{val.time}</td>
       </tr>
     ));
+  };
+
+  Editproduct = () => {
+    const productname = this.EdProname.value;
+    const deskripsi = this.Eddes.value;
+    const price = this.Edprice.value;
+    const lokasi = this.EdLoc.value;
+
+    axios
+      .patch(`/editproduct/${this.state.editproduct}`, {
+        productname: productname,
+        deskripsi: deskripsi,
+        price: price,
+        lokasi: lokasi
+      })
+      .then(res => {
+        Notiflix.Report.Success("Update Profile Success", " ");
+        this.getproduct();
+      });
   };
 
   renderlist = () => {
@@ -66,10 +93,19 @@ class ManageProduct extends Component {
           <img
             src={`http://localhost:2004/productimg/${item.picture}`}
             style={{ width: "100%", height: "20%" }}
+            alt=""
           />
         </td>
         <td>
-          <button className="btn btn-primary mr-2">Edit</button>
+          <button
+            className="btn btn-primary mr-2"
+            data-toggle="modal"
+            data-target="#exampleModal"
+            onClick={() => this.Onup(item.id, item)}
+          >
+            Edit
+          </button>
+
           <button
             className="btn btn-danger"
             onClick={() => {
@@ -153,9 +189,36 @@ class ManageProduct extends Component {
           })
           .then(res => {
             Notiflix.Report.Success("Jadwal Added", " ");
+            this.getJadwal();
           });
       }
     });
+  };
+
+  getbank = () => {
+    return axios.get("/getbank").then(res => {
+      this.setState({ databank: res.data });
+    });
+  };
+
+  renderbank = () => {
+    return this.state.databank.map(list => (
+      <tr>
+        <td scope="col">{list.namabank}</td>
+        <td scope="col">{list.norek}</td>
+      </tr>
+    ));
+  };
+
+  addbank = () => {
+    axios
+      .post("/inputbank", {
+        namabank: this.bank.value,
+        norek: this.addnorek.value
+      })
+      .then(res => {
+        Notiflix.Report.Success("Bank Saved", " ");
+      });
   };
 
   render() {
@@ -317,6 +380,162 @@ class ManageProduct extends Component {
                 </tr>
               </tbody>
             </table>
+
+            <div className="col-sm-6 mx-auto">
+              <h1 className="display-8 text-center">Daftar Bank</h1>
+              <table className="table table-hover mb-6">
+                <thead>
+                  <tr>
+                    <th scope="col">Nama Bank</th>
+                    <th scope="col">No rek</th>
+                  </tr>
+                </thead>
+                <tbody>{this.renderbank()}</tbody>
+              </table>
+            </div>
+
+            <table className="table text-center">
+              <thead>
+                <tr>
+                  <th scope="col-sm-4">Nama Bank</th>
+                  <th scope="col">No rek </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="col">
+                    <input
+                      ref={input => (this.bank = input)}
+                      className="form-control"
+                      type="text"
+                      placeholder="Nama Bank"
+                    />
+                  </th>
+                  <th scope="col-sm-4">
+                    <input
+                      ref={input => (this.addnorek = input)}
+                      className="form-control"
+                      type="number"
+                      placeholder="No rekening"
+                    />
+                  </th>
+
+                  <th scope="col ">
+                    <button
+                      className="btn btn-secondary"
+                      onClick={this.addbank}
+                    >
+                      Add
+                    </button>
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div
+          //MODAL Template
+          className="modal fade"
+          id="exampleModal"
+          tabIndex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">
+                  Edit Product
+                </h5>
+                <button
+                  type="button"
+                  className="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <form
+                  className="container col "
+                  style={{
+                    width: `100%`,
+                    height: "100%"
+                    // borderStyle: "solid"
+                  }}
+                >
+                  <div className="form-group" style={{ marginTop: `5%` }}>
+                    <label htmlFor="productname">Product Name</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="productname"
+                      placeholder="Product Name"
+                      defaultValue={this.state.listeditproduct.productname}
+                      ref={input => (this.EdProname = input)}
+                    />
+                  </div>
+
+                  <div className="form-group" style={{ marginTop: `5%` }}>
+                    <label htmlFor="deskripsi">Deskripsi</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="deskripsi"
+                      placeholder="Deskripsi"
+                      defaultValue={this.state.listeditproduct.deskripsi}
+                      ref={input => (this.Eddes = input)}
+                    />
+                  </div>
+
+                  <div className="form-group" style={{ marginTop: `5%` }}>
+                    <label htmlFor="harga">Harga</label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      id="harga"
+                      placeholder="Harga"
+                      defaultValue={this.state.listeditproduct.price}
+                      ref={input => (this.Edprice = input)}
+                    />
+                  </div>
+
+                  <div className="form-group" style={{ marginTop: `5%` }}>
+                    <label htmlFor="lokasi">Lokasi</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="lokasi"
+                      placeholder="Lokasi"
+                      defaultValue={this.state.listeditproduct.lokasi}
+                      ref={input => (this.EdLoc = input)}
+                    />
+                  </div>
+                </form>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  data-dismiss="modal"
+                  onClick={() => {
+                    this.Editproduct();
+                  }}
+                >
+                  Save changes
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </React.Fragment>

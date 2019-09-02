@@ -12,12 +12,7 @@ class Headerusers extends Component {
   render() {
     if (!this.props.username)
       return (
-        <div
-          style={{
-            width: `100%`
-          }}
-          className=" sticky-top"
-        >
+        <div className="sticky-top" style={{ width: "100%" }}>
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <a className="navbar-brand" href="/">
               PlayTeam
@@ -56,10 +51,10 @@ class Headerusers extends Component {
                     aria-labelledby="navbarDropdown"
                   >
                     <a className="dropdown-item" href="#kk">
-                      Indoor
+                      Basketball
                     </a>
                     <a className="dropdown-item" href="#kk">
-                      Outdoor
+                      Football
                     </a>
                   </div>
                 </li>
@@ -78,9 +73,17 @@ class Headerusers extends Component {
                 <button className="btn btn-outline-success mx-3" type="submit">
                   Search
                 </button>
-                <div style={{ marginLeft: `10%` }}>
+                <div style={{ marginLeft: `5%` }}>
+                  <a
+                    href="/product"
+                    className="btn btn-secondary active"
+                    role="button"
+                    aria-pressed="true"
+                  >
+                    Venue
+                  </a>
                   <Link to="/login">
-                    <button type="button" className="btn btn-success">
+                    <button type="button" className="btn btn-success ml-3">
                       Login
                     </button>
                   </Link>
@@ -160,9 +163,17 @@ class Headerusers extends Component {
               >
                 Search
               </button>
-              <div className="" style={{ marginLeft: `15%` }}>
+              <div className="" style={{ marginLeft: `5%` }}>
+                <a
+                  href="/product"
+                  className="btn btn-secondary active"
+                  role="button"
+                  aria-pressed="true"
+                >
+                  Venue
+                </a>
                 <Link to="/profile">
-                  <button type="button" className="btn btn-secondary">
+                  <button type="button" className="btn btn-success ml-2">
                     Profile
                   </button>
                 </Link>
