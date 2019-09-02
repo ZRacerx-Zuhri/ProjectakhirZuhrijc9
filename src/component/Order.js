@@ -1,18 +1,16 @@
 import React, { Component } from "react";
-// import { connect } from "react-redux";
-
 import Headerusers from "./Header/Headerusers";
 import axios from "../config/axios";
 import { connect } from "react-redux";
-import Notiflix from "notiflix-react";
+// import Notiflix from "notiflix-react";
 import { Link } from "react-router-dom";
-import { stat } from "fs";
 
 class Order extends Component {
   state = {
     mycart: [],
     bank: [],
-    userprofile: {}
+    userprofile: {},
+    order: {}
   };
 
   componentDidMount() {
@@ -21,15 +19,37 @@ class Order extends Component {
     this.getuser();
   }
 
-  toorder = (getdatabank = () => {
+  tobook = () => {
+    axios.patch("/updatejam");
+  };
+
+  toorder = () => {
+    axios
+      .post(`/booking/${this.props.userID}`, {
+        payment: this.payment.value,
+        namabank: this.bank.value
+      })
+      .then(res => {
+        this.setState({ order: res.data });
+        console.log(res.data);
+        axios.patch(`/updatebook/${this.props.userID}`, {
+          orderID: res.data.id
+        });
+      });
+  };
+
+  getdatabank = () => {
     return axios.get("/getbank").then(res => {
       this.setState({ bank: res.data });
+      console.log(res.data);
     });
-  });
+  };
 
   renderbank = () => {
     return this.state.bank.map(list => (
-      <option value={list.namabank}>{list.namabank}</option>
+      <option value={list.namabank} ref={input => (this.bank = input)}>
+        {list.namabank}
+      </option>
     ));
   };
 
@@ -116,7 +136,9 @@ class Order extends Component {
           <div class="input-group mb-3">
             <select class="custom-select" id="inputGroupSelect02">
               <option selected>Pilih Pembayaran</option>
-              <option value="1">Transfer</option>
+              <option value="transfer" ref={input => (this.payment = input)}>
+                Transfer
+              </option>
             </select>
             <div class="input-group-append">
               <label class="input-group-text" for="inputGroupSelect02">
@@ -136,7 +158,15 @@ class Order extends Component {
             </div>
           </div>
           <Link to="/tes">
-            <button className="btn btn-primary ">Bayar</button>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                this.toorder();
+                this.tobook();
+              }}
+            >
+              Bayar
+            </button>
           </Link>
         </div>
       </React.Fragment>
