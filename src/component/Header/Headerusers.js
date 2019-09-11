@@ -2,11 +2,18 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import "../../../src/style.css";
-import { logout } from "../../action";
+import { logout, search } from "../../action";
 
 class Headerusers extends Component {
+  state = {
+    search: ""
+  };
   logout = () => {
     this.props.logout();
+  };
+
+  onSearch = () => {
+    this.props.search(this.searchStr.value);
   };
 
   render() {
@@ -50,50 +57,50 @@ class Headerusers extends Component {
                     className="dropdown-menu"
                     aria-labelledby="navbarDropdown"
                   >
-                    <a className="dropdown-item" href="#kk">
-                      Basketball
+                    <a className="dropdown-item">
+                      <Link to="/product-cat/Basketball">Basketball</Link>
                     </a>
-                    <a className="dropdown-item" href="#kk">
-                      Football
+                    <a className="dropdown-item">
+                      <Link to="/product-cat/Football">Football</Link>
                     </a>
                   </div>
                 </li>
               </ul>
-              <form
-                className="form-inline my-2 my-lg-0"
-                style={{ width: `100%` }}
+
+              <input
+                className="form-control ml-5"
+                type="text"
+                placeholder="Search"
+                aria-label="Search"
+                style={{ width: `40%` }}
+                ref={input => (this.searchStr = input)}
+              />
+              <button
+                className="btn btn-outline-success mx-3"
+                onClick={this.onSearch}
               >
-                <input
-                  className="form-control ml-5"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                  style={{ width: `60%` }}
-                />
-                <button className="btn btn-outline-success mx-3" type="submit">
-                  Search
-                </button>
-                <div style={{ marginLeft: `5%` }}>
-                  <a
-                    href="/product"
-                    className="btn btn-secondary active"
-                    role="button"
-                    aria-pressed="true"
-                  >
-                    Venue
-                  </a>
-                  <Link to="/login">
-                    <button type="button" className="btn btn-success ml-3">
-                      Login
-                    </button>
-                  </Link>
-                  <Link to="/register">
-                    <button type="button" className="btn btn-primary ml-3">
-                      Register
-                    </button>
-                  </Link>
-                </div>
-              </form>
+                Search
+              </button>
+              <div style={{ marginLeft: `5%` }}>
+                <a
+                  href="/product"
+                  className="btn btn-secondary active"
+                  role="button"
+                  aria-pressed="true"
+                >
+                  Venue
+                </a>
+                <Link to="/login">
+                  <button type="button" className="btn btn-success ml-3">
+                    Login
+                  </button>
+                </Link>
+                <Link to="/register">
+                  <button type="button" className="btn btn-primary ml-3">
+                    Register
+                  </button>
+                </Link>
+              </div>
             </div>
           </nav>
         </div>
@@ -137,58 +144,60 @@ class Headerusers extends Component {
                   Category
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a className="dropdown-item" href="#kk">
-                    Indoor
-                  </a>
-                  <a className="dropdown-item" href="#kk">
-                    Outdoor
-                  </a>
+                  <div className="dropdown-item">
+                    <Link to="/product-cat/Basketball">Basketball</Link>
+                  </div>
+                  <div className="dropdown-item">
+                    <Link to="/product-cat/Football">Football</Link>
+                  </div>
                 </div>
               </li>
             </ul>
-            <form
-              className="form-inline my-2 my-lg-0"
-              style={{ width: `100%` }}
-            >
-              <input
-                className="form-control ml-5"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                style={{ width: `60%` }}
-              />
-              <button
-                className="btn btn-outline-success my-2 my-sm-0 ml-3"
-                type="submit"
-              >
-                Search
-              </button>
-              <div className="" style={{ marginLeft: `5%` }}>
-                <a
-                  href="/product"
-                  className="btn btn-secondary active"
-                  role="button"
-                  aria-pressed="true"
-                >
-                  Venue
-                </a>
-                <Link to="/profile">
-                  <button type="button" className="btn btn-success ml-2">
-                    Profile
-                  </button>
-                </Link>
 
-                <Link to="/">
-                  <button
-                    type="button"
-                    className="btn btn-primary ml-2"
-                    onClick={this.logout}
-                  >
-                    Logout
-                  </button>
-                </Link>
-              </div>
-            </form>
+            <input
+              className="form-control ml-5"
+              type="text"
+              placeholder="Search"
+              aria-label="Search"
+              style={{ width: `40%` }}
+              ref={input => (this.searchStr = input)}
+            />
+            <button
+              className="btn btn-outline-success my-2 my-sm-0 ml-3"
+              onClick={this.onSearch}
+            >
+              Search
+            </button>
+            <div className="" style={{ marginLeft: `5%` }}>
+              <a
+                href="/product"
+                className="btn btn-secondary active"
+                role="button"
+                aria-pressed="true"
+              >
+                Venue
+              </a>
+              <Link to="/profile">
+                <button type="button" className="btn btn-success ml-2">
+                  Profile
+                </button>
+              </Link>
+
+              <Link to="/">
+                <button
+                  type="button"
+                  className="btn btn-primary ml-2"
+                  onClick={this.logout}
+                >
+                  Logout
+                </button>
+              </Link>
+              <Link to="/cart">
+                <button type="button" className="btn btn-primary ml-2">
+                  myCart
+                </button>
+              </Link>
+            </div>
           </div>
         </nav>
       </div>
@@ -204,5 +213,5 @@ const mps = state => {
 
 export default connect(
   mps,
-  { logout }
+  { logout, search }
 )(Headerusers);

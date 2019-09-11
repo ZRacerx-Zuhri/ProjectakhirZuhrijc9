@@ -14,13 +14,14 @@ class Home extends Component {
       <React.Fragment>
         <Headerusers />
         <div
+          className="container col-12 mw-100 mh-100"
           style={{
             backgroundImage: `url(${background})`,
-            width: `100%`,
-            height: `1000px`
+            height: "1000px",
+            backgroundSize: "cover"
           }}
         >
-          <h1 className="text">HOME</h1>
+          <h1 className="text"></h1>
         </div>
       </React.Fragment>
     );

@@ -67,29 +67,6 @@ class HeaderAdmin extends Component {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-2">
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#kk"
-                  id="navbarDropdown"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Category
-                </a>
-                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a className="dropdown-item" href="#kk">
-                    Football
-                  </a>
-                  <a className="dropdown-item" href="#kk">
-                    Basketball
-                  </a>
-                </div>
-              </li>
-            </ul>
             <form
               className="form-inline my-2 my-lg-0"
               style={{ width: `100%` }}
@@ -100,12 +77,8 @@ class HeaderAdmin extends Component {
                     Manage Product
                   </button>
                 </Link>
-                <Link to="/adminlogin">
-                  <button
-                    type="button"
-                    className="btn btn-primary ml-2"
-                    onClick={this.adminlogut}
-                  >
+                <Link to="/Verifikasi">
+                  <button type="button" className="btn btn-primary ml-2">
                     Payment Verification
                   </button>
                 </Link>

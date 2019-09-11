@@ -2,41 +2,43 @@ import React, { Component } from "react";
 import Headerusers from "./Header/Headerusers";
 import axios from "../config/axios";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
 
-class ProductList extends Component {
+class ProductCategory extends Component {
   state = {
-    product: [],
-    searchP: []
+    product: []
   };
 
   componentDidMount() {
     this.getproduct();
-    this.onSearch();
   }
+  async componentWillUpdate(prevProps) {
+    if (this.props.match.params.name !== prevProps.match.params.name) {
+      await this.getProducts2(prevProps.match.params.name);
+    }
+  }
+
+  getProducts2 = async name => {
+    try {
+      const res = await axios.get(`/product-category/${name}`);
+      this.setState({ product: res.data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   getproduct = () => {
     axios
-      .get("/product")
+      .get(`/product-category/${this.props.match.params.name}`)
       .then(res => {
-        this.setState({ product: res.data, searchP: res.data });
+        this.setState({ product: res.data });
       })
       .catch(err => {
         console.log(err);
       });
   };
 
-  onSearch = () => {
-    if (this.props.cari) {
-      let arrSearch = this.state.searchP.filter(item => {
-        return item.productname.toLowerCase().includes(this.props.cari);
-      });
-      this.setState({ product: arrSearch });
-    }
-  };
-
-  renderlist = produc => {
-    return produc.map(val => (
+  renderlist = () => {
+    return this.state.product.map(val => (
       <div
         key={val.id}
         className="card  m-5 d-flex justify-content-center"
@@ -92,25 +94,14 @@ class ProductList extends Component {
   };
 
   render() {
-    console.log(this.props.cari.search);
-    let produc = this.state.product;
-    if (this.props.cari) {
-      produc = produc.filter(item => {
-        return item.productname.toLowerCase().includes(this.props.cari.search);
-      });
-    }
-
+    console.log(this.state.product);
     return (
       <React.Fragment>
         <Headerusers />
-        <div className="row col-10 mx-auto mt-5">{this.renderlist(produc)}</div>
+        <div className="row col-10 mx-auto mt-5">{this.renderlist()}</div>
       </React.Fragment>
     );
   }
 }
-const mapStateToProps = state => {
-  return {
-    cari: state.search
-  };
-};
-export default connect(mapStateToProps)(ProductList);
+
+export default ProductCategory;

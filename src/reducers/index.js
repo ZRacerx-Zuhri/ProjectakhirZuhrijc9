@@ -5,6 +5,19 @@ const initialstate = {
   id: "",
   adminuser: ""
 };
+const initSearch = {
+  search: ""
+};
+const ReducerSearch = (data = initSearch, action) => {
+  switch (action.type) {
+    case "SEARCH":
+      return {
+        search: action.payload
+      };
+    default:
+      return data;
+  }
+};
 
 const ReducerUser = (data = initialstate, action) => {
   switch (action.type) {
@@ -33,5 +46,6 @@ const ReducerUser = (data = initialstate, action) => {
 };
 
 export default combineReducers({
-  users: ReducerUser
+  users: ReducerUser,
+  search: ReducerSearch
 });

@@ -15,6 +15,8 @@ class ProductDetail extends Component {
   };
 
   todatacart = () => {
+    if (!this.props.userID)
+      return Notiflix.Report.Failure("Please login to use this fiture", " ");
     if (this.edtanggal.value === "" || this.state.time.length === 0)
       return Notiflix.Report.Failure("Please fill Data", " ");
 
@@ -106,7 +108,6 @@ class ProductDetail extends Component {
   };
 
   render() {
-    if (!this.props.userID) return <Redirect to="/login" />;
     if (this.state.Redirect === true) return <Redirect to="/cart" />;
     return (
       <React.Fragment>

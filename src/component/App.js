@@ -17,7 +17,8 @@ import ProductDetail from "../component/ProductDetail";
 import Cart from "../component/Cart";
 import Order from "../component/Order";
 import Payment from "./Payment";
-
+import ProductCategory from "./ProductCategory";
+import Verifikasi from "./Verifikasi";
 const cookie = new Cookies();
 
 class App extends Component {
@@ -66,6 +67,8 @@ class App extends Component {
         <Route path="/cart" component={Cart} />
         <Route path="/order" component={Order} />
         <Route path="/payment" component={Payment} />
+        <Route path="/product-cat/:name" component={ProductCategory} />
+        <Route path="/verifikasi" component={Verifikasi} />
       </BrowserRouter>
     );
   }

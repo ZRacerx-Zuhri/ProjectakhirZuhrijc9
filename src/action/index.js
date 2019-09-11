@@ -92,3 +92,10 @@ export const adminlogout = () => {
     }
   };
 };
+
+export const search = str => {
+  return {
+    type: "SEARCH",
+    payload: str
+  };
+};

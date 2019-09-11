@@ -2,15 +2,17 @@ import React, { Component } from "react";
 import Headerusers from "./Header/Headerusers";
 import axios from "../config/axios";
 import { connect } from "react-redux";
-// import Notiflix from "notiflix-react";
-import { Link } from "react-router-dom";
+import Notiflix from "notiflix-react";
+import { Link, Redirect } from "react-router-dom";
 
 class Order extends Component {
   state = {
     mycart: [],
     bank: [],
     userprofile: {},
-    order: {}
+    order: {},
+    namabank: "",
+    status: []
   };
 
   componentDidMount() {
@@ -19,37 +21,53 @@ class Order extends Component {
     this.getuser();
   }
 
-  tobook = () => {
-    axios.patch("/updatejam");
+  waitpay = () => {
+    axios.get("/paymentuser").then(res =>
+      this.setState({
+        status: res.data
+      })
+    );
   };
 
   toorder = () => {
-    axios
-      .post(`/booking/${this.props.userID}`, {
-        payment: this.payment.value,
-        namabank: this.bank.value
-      })
-      .then(res => {
-        this.setState({ order: res.data });
-        console.log(res.data);
-        axios.patch(`/updatebook/${this.props.userID}`, {
-          orderID: res.data.id
+    if (this.payment.value === "" || this.state.namabank === "")
+      return Notiflix.Report.Failure("Please fill data", " ");
+    if (this.state.status.length > 0)
+      return Notiflix.Report.Failure("Please pay transaction before!!", " ");
+
+    axios.get(`/paystatus/${this.props.userID}`).then(res => {
+      if (res.data.length > 0)
+        return Notiflix.Report.Failure("Please pay transaction before!!", " ");
+
+      axios
+        .post(`/booking/${this.props.userID}`, {
+          payment: "transfer",
+          bankID: this.state.namabank
+        })
+        .then(res => {
+          this.setState({ order: res.data });
+
+          axios
+            .patch(`/updatebook/${this.props.userID}`, {
+              orderID: res.data.id
+            })
+            .then(res => {
+              axios.patch("/updatejam");
+            })
+            .then(res => {});
         });
-      });
+    });
   };
 
   getdatabank = () => {
-    return axios.get("/getbank").then(res => {
+    return axios.get("/bank").then(res => {
       this.setState({ bank: res.data });
-      console.log(res.data);
     });
   };
 
   renderbank = () => {
     return this.state.bank.map(list => (
-      <option value={list.namabank} ref={input => (this.bank = input)}>
-        {list.namabank}
-      </option>
+      <option value={list.id}>{list.namabank}</option>
     ));
   };
 
@@ -88,14 +106,15 @@ class Order extends Component {
   getmycart = () => {
     axios.get(`/mycart/${this.props.userID}`).then(res => {
       this.setState({ mycart: res.data });
-      console.log(res.data);
     });
   };
 
   render() {
+    if (!this.props.userID) return <Redirect to="/login" />;
     return (
       <React.Fragment>
         <Headerusers />
+
         <div className="container col-6 mt-5">
           <table className="table">
             <thead className="bg-info">
@@ -147,7 +166,11 @@ class Order extends Component {
             </div>
           </div>
           <div class="input-group mb-3">
-            <select class="custom-select" id="inputGroupSelect02">
+            <select
+              className="custom-select"
+              id="inputGroupSelect02"
+              onChange={e => this.setState({ namabank: e.target.value })}
+            >
               <option selected>Pilih Bank</option>
               {this.renderbank()}
             </select>
@@ -157,12 +180,12 @@ class Order extends Component {
               </label>
             </div>
           </div>
-          <Link to="/tes">
+          <Link to="/payment">
             <button
               className="btn btn-primary"
               onClick={() => {
+                // this.tobook();
                 this.toorder();
-                this.tobook();
               }}
             >
               Bayar

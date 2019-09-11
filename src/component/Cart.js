@@ -3,7 +3,7 @@ import Headerusers from "./Header/Headerusers";
 import axios from "../config/axios";
 import { connect } from "react-redux";
 import Notiflix from "notiflix-react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 class Cart extends Component {
   state = {
@@ -65,12 +65,15 @@ class Cart extends Component {
 
   getmycart = () => {
     axios.get(`/mycart/${this.props.userID}`).then(res => {
+      // if (res.data.length == 0)
+      // return Notiflix.Report.Failure("You dont have cart", " ");
       this.setState({ mycart: res.data });
       console.log(res.data);
     });
   };
 
   render() {
+    if (!this.props.userID) return <Redirect to="/login" />;
     return (
       <React.Fragment>
         <Headerusers />
