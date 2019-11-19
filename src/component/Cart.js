@@ -77,7 +77,7 @@ class Cart extends Component {
     return (
       <React.Fragment>
         <Headerusers />
-        <div className="container col-9 mt-5">
+        <div className="container col-9" style={{ marginTop: "90px" }}>
           <table className="table">
             <thead className="bg-info">
               <tr>

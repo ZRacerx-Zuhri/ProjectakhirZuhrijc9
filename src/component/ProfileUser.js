@@ -38,6 +38,7 @@ class ProfileUser extends Component {
     const formData = new FormData();
 
     const avatar = this.Avatar.files[0];
+
     const data_fullname = this.fullname.value;
     const data_email = this.email.value;
     const data_alamat = this.alamat.value;
@@ -117,7 +118,10 @@ class ProfileUser extends Component {
         <React.Fragment>
           <Headerusers />
           <div className="container mt-5 ">
-            <div className=" shadow-lg w-75 p-3 mb-5 mx-auto text-light bg-dark rounded">
+            <div
+              style={{ marginTop: "100px" }}
+              className=" shadow-lg w-75 p-3 mb-5 mx-auto text-light bg-dark rounded"
+            >
               Profile of {this.props.username}
             </div>
 
@@ -311,7 +315,10 @@ class ProfileUser extends Component {
       <React.Fragment>
         <Headerusers />
         <div className="container mt-5 ">
-          <div className=" shadow-lg w-75 p-3 mb-5 mx-auto text-light bg-dark rounded">
+          <div
+            style={{ marginTop: "100px" }}
+            className=" shadow-lg w-75 p-3 mb-5 mx-auto text-light bg-dark rounded"
+          >
             Profile of {this.props.username}
           </div>
 

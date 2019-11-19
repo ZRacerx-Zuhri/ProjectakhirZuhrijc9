@@ -3,6 +3,7 @@ import Headerusers from "./Header/Headerusers";
 import axios from "../config/axios";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import "../../src/style.css";
 
 class ProductList extends Component {
   state = {
@@ -48,25 +49,28 @@ class ProductList extends Component {
           data-interval="2000"
         >
           <div className="carousel-inner">
-            <div className="carousel-item active">
+            <div className="carousel-item active ">
               <img
-                className="d-block w-100"
+                className="d-block w-100 "
                 src={`http://localhost:2004/productimg/${val.picture}`}
-                alt=""
+                alt="1"
+                style={{ height: "200px" }}
               />
             </div>
             <div className="carousel-item">
               <img
-                className="d-block w-100"
+                className="d-block w-100 "
                 src={`http://localhost:2004/productimg/${val.picture2}`}
-                alt=""
+                alt="2"
+                style={{ height: "200px" }}
               />
             </div>
             <div className="carousel-item">
               <img
-                className="d-block w-100"
+                className="d-block w-100 "
                 src={`http://localhost:2004/productimg/${val.picture3}`}
-                alt=""
+                alt="3"
+                style={{ height: "200px" }}
               />
             </div>
           </div>

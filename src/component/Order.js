@@ -21,42 +21,25 @@ class Order extends Component {
     this.getuser();
   }
 
-  waitpay = () => {
-    axios.get("/paymentuser").then(res =>
-      this.setState({
-        status: res.data
-      })
-    );
-  };
-
   toorder = () => {
-    if (this.payment.value === "" || this.state.namabank === "")
+    if (
+      this.payment.value === "" ||
+      this.state.namabank === "" ||
+      this.state.mycart.length === 0
+    )
       return Notiflix.Report.Failure("Please fill data", " ");
-    if (this.state.status.length > 0)
-      return Notiflix.Report.Failure("Please pay transaction before!!", " ");
 
-    axios.get(`/paystatus/${this.props.userID}`).then(res => {
-      if (res.data.length > 0)
-        return Notiflix.Report.Failure("Please pay transaction before!!", " ");
-
-      axios
-        .post(`/booking/${this.props.userID}`, {
-          payment: "transfer",
-          bankID: this.state.namabank
-        })
-        .then(res => {
-          this.setState({ order: res.data });
-
-          axios
-            .patch(`/updatebook/${this.props.userID}`, {
-              orderID: res.data.id
-            })
-            .then(res => {
-              axios.patch("/updatejam");
-            })
-            .then(res => {});
-        });
-    });
+    axios
+      .post(`/booking/${this.props.userID}`, {
+        payment: "transfer",
+        bankID: this.state.namabank
+      })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   getdatabank = () => {
@@ -96,7 +79,7 @@ class Order extends Component {
   };
 
   totalharga = () => {
-    let y = 0;
+    var y = 0;
     for (let i = 0; i < this.state.mycart.length; i++) {
       y += this.state.mycart[i].price;
     }
@@ -115,7 +98,7 @@ class Order extends Component {
       <React.Fragment>
         <Headerusers />
 
-        <div className="container col-6 mt-5">
+        <div className="container col-6 " style={{ marginTop: "10%" }}>
           <table className="table">
             <thead className="bg-info">
               <tr>
@@ -184,11 +167,10 @@ class Order extends Component {
             <button
               className="btn btn-primary"
               onClick={() => {
-                // this.tobook();
                 this.toorder();
               }}
             >
-              Bayar
+              Order
             </button>
           </Link>
         </div>

@@ -3,6 +3,7 @@ import axios from "../config/axios";
 import Headerusers from "../component/Header/Headerusers";
 import { isEmail } from "validator";
 import Notiflix from "notiflix-react";
+import { Redirect } from "react-router-dom";
 
 class Register extends Component {
   state = {
@@ -16,8 +17,6 @@ class Register extends Component {
     fullname: ""
   };
 
-
-
   inputuser = () => {
     const username = this.userName.value;
     const fullname = this.Fullname.value;
@@ -29,16 +28,14 @@ class Register extends Component {
     const nomobile = this.nomor.value;
 
     axios.get("/getusers").then(res => {
-
-
       if (
-        username === "" ||
-        email === "" ||
-        password === "" ||
-        gender === "" ||
-        tanggallahir === "" ||
-        alamat === "" ||
-        nomobile === ""
+        !username ||
+        !email ||
+        !password ||
+        !gender ||
+        !tanggallahir ||
+        !alamat ||
+        !nomobile
       ) {
         return Notiflix.Report.Failure(
           "Registration Failed",
@@ -55,6 +52,12 @@ class Register extends Component {
         return Notiflix.Report.Failure(
           "Registration Failed",
           "Usia Belum Cukup Umur min 13 Tahun",
+          "Ok"
+        );
+      } else if (nomobile.match(/\D/)) {
+        return Notiflix.Report.Failure(
+          "Registration Failed",
+          "Mohon gunakan Mobile Number",
           "Ok"
         );
       } else {
@@ -125,6 +128,7 @@ class Register extends Component {
   };
 
   render() {
+    if (this.props.username) return <Redirect to="/" />;
     return (
       <React.Fragment>
         <Headerusers />
@@ -132,7 +136,7 @@ class Register extends Component {
         <div
           className="container  opp3 rounded-lg"
           style={{
-            marginTop: `2%`,
+            marginTop: `10%`,
             backgroundRepeat: `no-repeat`,
             backgroundPosition: `center`,
             backgroundSize: `auto`,
@@ -140,6 +144,7 @@ class Register extends Component {
             height: "700px"
           }}
         >
+          <div className="registext">Register</div>
           <div className="form-row justify-content-md-center ">
             <form className=" col-sm-3 " style={{ marginTop: `6%` }}>
               <div>
@@ -280,7 +285,7 @@ class Register extends Component {
                 <button
                   type="button"
                   className="btn btn-primary"
-                  style={{ marginTop: `2%` }}
+                  style={{ marginTop: `2%`, marginBottom: "10%" }}
                   onClick={this.inputuser}
                 >
                   Register

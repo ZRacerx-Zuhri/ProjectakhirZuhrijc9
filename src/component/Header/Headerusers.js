@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+
 import { connect } from "react-redux";
 import "../../../src/style.css";
 import { logout, search } from "../../action";
@@ -16,191 +16,159 @@ class Headerusers extends Component {
     this.props.search(this.searchStr.value);
   };
 
+  show = () => {
+    document.getElementById("bar").style.width = "100%";
+    document.getElementById("bar").style.height = "100%";
+  };
+
+  hide = () => {
+    document.getElementById("bar").style.width = "0";
+    document.getElementById("bar").style.height = "0%";
+  };
+
   render() {
     if (!this.props.username)
       return (
-        <div className="sticky-top" style={{ width: "100%" }}>
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand" href="/">
+        <React.Fragment>
+          <div className="header">
+            <div className="humnav">
+              <nav className="navbar navbar-dark ">
+                <button
+                  className="humnav navbar-toggler"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#navbarToggleExternalContent"
+                  aria-controls="navbarToggleExternalContent"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                  onClick={this.show}
+                >
+                  <span className="navbar-toggler-icon"></span>
+                </button>
+              </nav>
+            </div>
+
+            <a href="/" className="anchortitle">
               PlayTeam
             </a>
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="navbar-toggler-icon" />
-            </button>
 
-            <div
-              className="collapse navbar-collapse"
-              id="navbarSupportedContent"
-            >
-              <ul className="navbar-nav mr-2">
-                <li className="nav-item dropdown">
+            <ul className="take">
+              <li className="login">
+                <a href="/login" className="cas">
+                  Login
+                </a>
+              </li>
+              <li>
+                <a href="/register" className="cas">
+                  Register >
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div id="bar" className="s" onClick={this.hide}>
+            <div className="row list ">
+              <div className="col-11 mx-auto my-auto">
+                <div className="list-group">
                   <a
-                    className="nav-link dropdown-toggle"
-                    href="#kk"
-                    id="navbarDropdown"
-                    role="button"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
+                    href="/"
+                    className="list-group-item list-group-item-action"
                   >
-                    Category
+                    Home
                   </a>
-                  <div
-                    className="dropdown-menu"
-                    aria-labelledby="navbarDropdown"
+                  <a
+                    href="/product"
+                    className="list-group-item list-group-item-action"
                   >
-                    <a className="dropdown-item">
-                      <Link to="/product-cat/Basketball">Basketball</Link>
-                    </a>
-                    <a className="dropdown-item">
-                      <Link to="/product-cat/Football">Football</Link>
-                    </a>
-                  </div>
-                </li>
-              </ul>
-
-              <input
-                className="form-control ml-5"
-                type="text"
-                placeholder="Search"
-                aria-label="Search"
-                style={{ width: `40%` }}
-                ref={input => (this.searchStr = input)}
-              />
+                    Venue
+                  </a>
+                  <a
+                    href="/register"
+                    className="list-group-item list-group-item-action"
+                  >
+                    Register
+                  </a>
+                  <a
+                    href="/login"
+                    className="list-group-item list-group-item-action"
+                  >
+                    Login
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </React.Fragment>
+      );
+    return (
+      <React.Fragment>
+        <div className="header">
+          <div className="humnav">
+            <nav className="navbar navbar-dark ">
               <button
-                className="btn btn-outline-success mx-3"
-                onClick={this.onSearch}
+                className="humnav navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarToggleExternalContent"
+                aria-controls="navbarToggleExternalContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                onClick={this.show}
               >
-                Search
+                <span className="navbar-toggler-icon"></span>
               </button>
-              <div style={{ marginLeft: `5%` }}>
+            </nav>
+          </div>
+          <div>
+            <a href="/" className="anchortitle">
+              PlayTeam
+            </a>
+          </div>
+          <ul className="take">
+            <li className="login">
+              <a href="/product" className="cas">
+                Venue
+              </a>
+            </li>
+            <li>
+              <a href="/profile" className="cas">
+                Profile
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div id="bar" className="s" onClick={this.hide}>
+          <div className="row list ">
+            <div class="col-11 mx-auto my-auto">
+              <div class="list-group">
+                <a href="/" class="list-group-item list-group-item-action">
+                  Home
+                </a>
                 <a
                   href="/product"
-                  className="btn btn-secondary active"
-                  role="button"
-                  aria-pressed="true"
+                  class="list-group-item list-group-item-action"
                 >
                   Venue
                 </a>
-                <Link to="/login">
-                  <button type="button" className="btn btn-success ml-3">
-                    Login
-                  </button>
-                </Link>
-                <Link to="/register">
-                  <button type="button" className="btn btn-primary ml-3">
-                    Register
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </nav>
-        </div>
-      );
-
-    return (
-      <div
-        style={{
-          width: `100%`
-        }}
-        className={"sticky-top"}
-      >
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <a className="navbar-brand" href="/">
-            PlayTeam
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
-
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-2">
-              <li className="nav-item dropdown">
                 <a
-                  className="nav-link dropdown-toggle"
-                  href="#kk"
-                  id="navbarDropdown"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
+                  href="/payment"
+                  class="list-group-item list-group-item-action"
                 >
-                  Category
+                  Transaction
                 </a>
-                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <div className="dropdown-item">
-                    <Link to="/product-cat/Basketball">Basketball</Link>
-                  </div>
-                  <div className="dropdown-item">
-                    <Link to="/product-cat/Football">Football</Link>
-                  </div>
-                </div>
-              </li>
-            </ul>
-
-            <input
-              className="form-control ml-5"
-              type="text"
-              placeholder="Search"
-              aria-label="Search"
-              style={{ width: `40%` }}
-              ref={input => (this.searchStr = input)}
-            />
-            <button
-              className="btn btn-outline-success my-2 my-sm-0 ml-3"
-              onClick={this.onSearch}
-            >
-              Search
-            </button>
-            <div className="" style={{ marginLeft: `5%` }}>
-              <a
-                href="/product"
-                className="btn btn-secondary active"
-                role="button"
-                aria-pressed="true"
-              >
-                Venue
-              </a>
-              <Link to="/profile">
-                <button type="button" className="btn btn-success ml-2">
-                  Profile
-                </button>
-              </Link>
-
-              <Link to="/">
-                <button
-                  type="button"
-                  className="btn btn-primary ml-2"
+                <a
+                  href="/login"
                   onClick={this.logout}
+                  class="list-group-item list-group-item-action"
                 >
                   Logout
-                </button>
-              </Link>
-              <Link to="/cart">
-                <button type="button" className="btn btn-primary ml-2">
-                  myCart
-                </button>
-              </Link>
+                </a>
+              </div>
             </div>
           </div>
-        </nav>
-      </div>
+        </div>
+      </React.Fragment>
     );
   }
 }

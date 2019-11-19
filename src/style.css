@@ -58,3 +58,121 @@
 .profile {
   background-image: url(../src/picture/avatar.png);
 }
+
+.header {
+  width: 100%;
+  height: 65px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  display: flex;
+
+  flex-wrap: wrap;
+  background-color: rgba(71, 71, 71, 0.521);
+}
+
+.s {
+  width: 0%;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.556);
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+.linku {
+  text-decoration-line: none;
+}
+
+.list {
+  top: 0px;
+  width: 30%;
+  height: 100%;
+  background-image: url("../src/picture/forbar.jpg");
+  background-size: cover;
+}
+
+.take {
+  height: 100%;
+  width: 20%;
+  margin-left: auto;
+  padding: 0;
+}
+.take li {
+  display: inline-flex;
+  flex-wrap: wrap;
+
+  width: 50%;
+
+  height: 100%;
+  background-color: rgba(40, 118, 236, 0.822);
+  text-align: center;
+  line-height: 65px;
+  font-size: 20px;
+}
+li.login {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+a.cas {
+  height: 100%;
+  width: 100%;
+  color: azure;
+  font-size: 18px;
+}
+a.cas:hover {
+  text-decoration: none;
+  color: rgb(206, 206, 206);
+}
+
+.heightcaro {
+  max-height: 800px;
+}
+
+.registext {
+  font-size: 40px;
+  text-align: center;
+}
+
+div.backhome {
+  position: absolute;
+  z-index: -2;
+
+  right: 0;
+  left: 0;
+  top: 0;
+}
+div.homepro {
+  margin-top: 800px;
+}
+div.homevenue {
+  text-align: center;
+  font-size: 100px;
+  color: rgb(101, 100, 107);
+}
+
+div.title {
+  display: inline-flex;
+
+  color: rgb(101, 100, 107);
+}
+.anchortitle {
+  color: azure;
+  line-height: 60px;
+
+  font-size: 25px;
+}
+.anchortitle:hover {
+  text-decoration: none;
+  color: rgb(206, 206, 206);
+}
+
+.inputbtn {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.hproduct {
+  max-height: 50px;
+}

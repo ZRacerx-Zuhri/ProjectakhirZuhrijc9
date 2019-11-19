@@ -27,10 +27,8 @@ class ProductDetail extends Component {
           jam: this.state.time[i]
         })
         .then(res => {
-          console.log(res.data);
           if (res.data.length > 0) {
             Notiflix.Report.Success("Save To Cart", " ");
-            this.setState({ Redirect: true });
           } else {
             axios
               .post("/addtocart", {
@@ -57,7 +55,7 @@ class ProductDetail extends Component {
       timeup.splice(index, 1);
     }
     this.setState({ time: timeup });
-    console.log(timeup);
+    console.log(this.state.time);
   };
 
   componentDidMount() {
@@ -69,7 +67,6 @@ class ProductDetail extends Component {
     let proid = this.props.match.params.id;
 
     axios(`/product/${proid}`).then(res => {
-      console.log(res.data);
       this.setState({ product: res.data });
     });
   };
@@ -112,7 +109,7 @@ class ProductDetail extends Component {
     return (
       <React.Fragment>
         <Headerusers />
-        <div className="col-7 mx-auto mt-5">
+        <div className="col-7 mx-auto" style={{ marginTop: "10%" }}>
           <div
             id="carouselExampleIndicators"
             className="carousel slide"
