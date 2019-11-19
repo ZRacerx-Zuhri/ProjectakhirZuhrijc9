@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.ab66b708.chunk.css",
+    "main.js": "/static/js/main.8faf39c7.chunk.js",
+    "main.js.map": "/static/js/main.8faf39c7.chunk.js.map",
+    "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
+    "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
+    "static/css/2.266e55a5.chunk.css": "/static/css/2.266e55a5.chunk.css",
+    "static/js/2.2f8b6b4d.chunk.js": "/static/js/2.2f8b6b4d.chunk.js",
+    "static/js/2.2f8b6b4d.chunk.js.map": "/static/js/2.2f8b6b4d.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.562ed7ef286a0d508b5ecd11c1372697.js": "/precache-manifest.562ed7ef286a0d508b5ecd11c1372697.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.266e55a5.chunk.css.map": "/static/css/2.266e55a5.chunk.css.map",
+    "static/css/main.ab66b708.chunk.css.map": "/static/css/main.ab66b708.chunk.css.map",
+    "static/media/style.css": "/static/media/sport2.f1e84893.jpg",
+    "static/media/background-01.jpg": "/static/media/background-01.b9da230b.jpg",
+    "static/media/background-02.jpg": "/static/media/background-02.627264c3.jpg",
+    "static/media/background-03.jpeg": "/static/media/background-03.bf532bb8.jpeg",
+    "static/media/noimage.png": "/static/media/noimage.2253b170.png"
+  }
+}
